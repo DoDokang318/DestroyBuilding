@@ -6,11 +6,10 @@ public class Block : MonoBehaviour
 {
     public BlockSO blockSO;
 
-    int BlockHp;
+    public int BlockHp { get; set; }
     private void Start()
     {
         BlockHp = blockSO.BlockHp;
-
     }
 
 }

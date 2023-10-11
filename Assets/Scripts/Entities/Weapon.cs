@@ -4,15 +4,40 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int NuckBackForce = -10;
+    private void OnTriggerEnter2D(Collider2D other)
     {
         
-    }
+       if (other.gameObject.tag == "Block")
+       {
+           if (other.TryGetComponent(out Block block))
+           {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+                if(GameManager.Instance.IsAttack==true&& GameManager.Instance.Isdefence == false)
+                {
+                    block.BlockHp--;
+                    Debug.Log(block.BlockHp);                   
+                }
+
+                if (GameManager.Instance.IsAttack == false && GameManager.Instance.Isdefence == true)
+                {
+                    Rigidbody2D rb2d = other.gameObject.GetComponent<Rigidbody2D>();
+                    if (rb2d != null)
+                    {
+                        Vector2 force = new Vector2(0, NuckBackForce);  // Y 방향으로 반대 방향 힘을 정의
+                        rb2d.AddForce(force, ForceMode2D.Impulse);  // 힘을 적용
+                    }
+             
+                }
+
+
+                if (block.BlockHp<=0)
+                {                                     
+                    other.gameObject.SetActive(false);                                     
+                }
+           }
+
+       }
+
     }
 }

@@ -10,6 +10,8 @@ public class GameManager :Singletone<GameManager>
     //게임패배 ,승리등등
     //
     public bool IsBlock;
+    public bool IsAttack;
+    public bool Isdefence;
 
     private bool gameOver;
 

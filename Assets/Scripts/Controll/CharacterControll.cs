@@ -42,8 +42,16 @@ public class CharacterControll : MonoBehaviour
     }
     public void Attack(InputAction.CallbackContext context)
     {
-        animator.SetTrigger("Attack");
+        GameManager.Instance.IsAttack = true;
+        GameManager.Instance.Isdefence = false;
+        Debug.Log("Attack");
+        animator.SetTrigger("Attack");     
     }
-
+    public void Diffence(InputAction.CallbackContext context)
+    {
+        GameManager.Instance.IsAttack = false;
+        GameManager.Instance.Isdefence = true;
+        animator.SetTrigger("Diffence");
+    }
 
 }

@@ -12,21 +12,15 @@ public class BlockSpawner : MonoBehaviour
     }
   
     private void Update()
-    {
-        Spawn();
-        if ( GameManager.Instance.IsBlock == false)
-        {                
-            Spawn();
-            
-            GameManager.Instance.IsBlock = true;
-        }
+    {                   
+        Spawn();          
     }
 
     void Spawn()
     {
-        GameObject Block = PoolManager.Instance.Get(0);
-
-      
+        for (int i = 0; i < PoolManager.Instance.Prefabs.Length; i++)
+        {
+            GameObject Block = PoolManager.Instance.Get(i);
+        }
     }    
-
 }
