@@ -18,9 +18,9 @@ public class BlockSpawner : MonoBehaviour
 
     void Spawn()
     {
-        for (int i = 0; i < PoolManager.Instance.Prefabs.Length; i++)
-        {
-            GameObject Block = PoolManager.Instance.Get(i);
-        }
+        //for (int i = 0; i < PoolManager.Instance.Prefabs.Length; i++)
+        //{
+        //    GameObject Block = PoolManager.Instance.Get(i);
+        //}
     }    
 }

@@ -7,7 +7,10 @@ using UnityEngine.InputSystem;
 public class CharacterControll : MonoBehaviour
 {
     public Rigidbody2D Rb;
+
     public Transform GroundCheck;
+    public Transform BlockGroundCheck;
+
     public LayerMask GroundLayer;
 
     public Animator animator;
@@ -34,14 +37,17 @@ public class CharacterControll : MonoBehaviour
     {
         return Physics2D.OverlapCircle(GroundCheck.position, 0.2f, GroundLayer);
     }
-
-
-    public void Move(InputAction.CallbackContext context)
+    private bool IsBlockGrounded()
     {
-        Horizontal = context.ReadValue<Vector2>().x;
+        return Physics2D.OverlapCircle(BlockGroundCheck.position, 0.2f, GroundLayer);
     }
+
+
     public void Attack(InputAction.CallbackContext context)
     {
+        if(!context.performed)
+          return;
+
         GameManager.Instance.IsAttack = true;
         GameManager.Instance.Isdefence = false;
         Debug.Log("Attack");
@@ -49,6 +55,9 @@ public class CharacterControll : MonoBehaviour
     }
     public void Diffence(InputAction.CallbackContext context)
     {
+
+        if (!context.performed)
+            return;
         GameManager.Instance.IsAttack = false;
         GameManager.Instance.Isdefence = true;
         animator.SetTrigger("Diffence");
