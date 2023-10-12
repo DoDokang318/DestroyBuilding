@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GameManager :Singletone<GameManager>
+public class GameManager : Singletone<GameManager>
 {
- 
+
     // 게임 승리했을시 
-  
+
     //게임패배 ,승리등등
     //
     public bool IsBlock;

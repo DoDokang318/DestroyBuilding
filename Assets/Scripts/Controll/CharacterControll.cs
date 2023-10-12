@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,12 +14,14 @@ public class CharacterControll : MonoBehaviour
     private float Horizontal;
     private float Speed = 8f;
     public float JumpingPower = 16f;
-  
+
 
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && IsGrounded())
         {
+
+
             Rb.velocity = new Vector2(Rb.velocity.x, JumpingPower);
         }
 
@@ -45,13 +44,13 @@ public class CharacterControll : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if(!context.performed)
-          return;
+        if (!context.performed)
+            return;
 
         GameManager.Instance.IsAttack = true;
         GameManager.Instance.Isdefence = false;
         Debug.Log("Attack");
-        animator.SetTrigger("Attack");     
+        animator.SetTrigger("Attack");
     }
     public void Diffence(InputAction.CallbackContext context)
     {

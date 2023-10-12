@@ -1,56 +1,42 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PoolManager : Singletone<PoolManager>
 {
-
     public GameObject Spawner;
-    public GameObject[] Prefabs;
+    public GameObject Prefabs;
     public int size;
-    List<GameObject>[] Pools;
 
+    Queue<GameObject> objectPool = new Queue<GameObject>();
 
     private void Awake()
     {
-        //foreach (var pool in pools)
-        //{
-        //    Queue<GameObject> objectPool = new Queue<GameObject>();
-        //    for (int i = 0; i < pool.size; i++)
-        //    {
-        //        GameObject obj = Instantiate(pool.prefab);
-        //        obj.SetActive(false);
-        //        objectPool.Enqueue(obj);
-        //    }
-        //    poolDictionary.Add(pool.tag, objectPool);
-        //}
+        for (int i = 0; i < size; i++)
+        {
+            GameObject obj = Instantiate(Prefabs, Spawner.transform);
+            obj.SetActive(false);
+            objectPool.Enqueue(obj);
+            Debug.Log(" Enqueue(obj);");
+        }
     }
 
+    public void SpawnFromPool()
+    {
+        Debug.Log(" SpawnFromPool()");
+        if (objectPool.Count > 0)
+        {
+            Debug.Log(" Dequeue();");
+            GameObject obj = objectPool.Dequeue();
+            obj.SetActive(true);
+          
+        }
+      
+    }
 
+    public void ReturnToPool(GameObject obj)
+    {
+        obj.SetActive(false);
 
-
-
-    //public GameObject Get(int index)
-    //{
-    //    GameObject select = null;
-
-    //    foreach (GameObject item in Pools[index])
-    //    {
-    //        if (item.activeSelf)
-    //        {
-    //            select = item;
-    //            select.SetActive(true);
-    //            break;
-    //        }
-    //    }
-
-    //    if (!select)
-    //    {
-    //        select = Instantiate(Prefabs[index], Spawner.transform);
-    //        select.SetActive(true);
-    //        Pools[index].Add(select);
-    //    }
-
-    //    return select;
-    //}
+        objectPool.Enqueue(obj); // 사용한 오브젝트를 객체 풀에 반환
+    }
 }

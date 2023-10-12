@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -7,16 +5,16 @@ public class Weapon : MonoBehaviour
     public int NuckBackForce = -10;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
-       if (other.gameObject.tag == "Block")
-       {
-           if (other.TryGetComponent(out Block block))
-           {
 
-                if(GameManager.Instance.IsAttack==true&& GameManager.Instance.Isdefence == false)
+        if (other.gameObject.tag == "Block")
+        {
+            if (other.TryGetComponent(out Block block))
+            {
+
+                if (GameManager.Instance.IsAttack == true && GameManager.Instance.Isdefence == false)
                 {
                     block.BlockHp--;
-                    Debug.Log(block.BlockHp);                   
+                    Debug.Log(block.BlockHp);
                 }
 
                 if (GameManager.Instance.IsAttack == false && GameManager.Instance.Isdefence == true)
@@ -27,17 +25,18 @@ public class Weapon : MonoBehaviour
                         Vector2 force = new Vector2(0, NuckBackForce);  // Y 방향으로 반대 방향 힘을 정의
                         rb2d.AddForce(force, ForceMode2D.Impulse);  // 힘을 적용
                     }
-             
+
                 }
 
 
-                if (block.BlockHp<=0)
-                {                                     
-                    other.gameObject.SetActive(false);                                     
-                }
-           }
+                if (block.BlockHp <= 0)
+                {
 
-       }
+                    PoolManager.Instance.ReturnToPool(other.gameObject);
+                }
+            }
+
+        }
 
     }
 }
